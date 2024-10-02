@@ -1,6 +1,7 @@
 package iset.bizerte.elearning.Entity;
 
 import jakarta.persistence.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
@@ -16,6 +17,11 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type-acteur",length = 10)
 public class User implements UserDetails, Serializable {
 
     @Id
@@ -63,6 +69,9 @@ public class User implements UserDetails, Serializable {
     public String getUsername() {
         return email;
     }
+
+
+
 
 
 

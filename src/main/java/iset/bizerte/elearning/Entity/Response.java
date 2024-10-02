@@ -9,5 +9,3 @@ public class Response {
     private String responseMessage;
     private String email;
 }
-
-
