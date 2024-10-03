@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,6 +23,4 @@ public class Etudiant extends User {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Parent parent ;
-
-
 }

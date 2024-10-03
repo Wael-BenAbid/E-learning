@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class AdministrateurDto  extends RegisterReqeste{
+public class AdministrateurDto  extends RegisterRequeste {
     private boolean isadmine;
 
     public static Administrateur toEntity(AdministrateurDto request) {

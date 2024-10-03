@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class ParentDto  extends RegisterReqeste{
+public class ParentDto  extends RegisterRequeste {
 
     private String cin;
 

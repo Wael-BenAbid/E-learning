@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class EtudiantDto  extends RegisterReqeste{
+public class EtudiantDto  extends RegisterRequeste {
 
     private String classe ;
     private String section ;

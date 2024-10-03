@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class EnseignantDto extends RegisterReqeste{
+public class EnseignantDto extends RegisterRequeste {
     private String diplome;
     public static Enseignant toEntity(EnseignantDto request) {
         return Enseignant.builder()

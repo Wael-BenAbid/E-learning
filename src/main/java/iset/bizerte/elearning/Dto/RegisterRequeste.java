@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterReqeste {
+public class RegisterRequeste {
     private Long id;
     private String firstName;
     private String lastName;
