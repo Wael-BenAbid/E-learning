@@ -30,11 +30,6 @@ public class Cours extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "enseignant_id")
     private Enseignant enseignant;
-
-    public Cours() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 }
 
 
