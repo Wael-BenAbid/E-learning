@@ -25,4 +25,3 @@ public class Administrateur extends User{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "administrateur", cascade = CascadeType.ALL)
     Set<Enseignant> enseignants=new HashSet<>();
 }
-

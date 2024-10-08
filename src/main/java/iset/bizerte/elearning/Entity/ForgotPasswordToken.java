@@ -23,25 +23,17 @@ public class ForgotPasswordToken {
     private Long id;
     private Integer token;
     private Date expirationTime;
-
     private static final int EXPIRATION_TIME = 1;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
     public Date getTokenExpirationTime(){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(new Date().getTime());
         calendar.add(Calendar.MINUTE,EXPIRATION_TIME);
         return new Date(calendar.getTime().getTime());
     }
-
-
-
-
 }

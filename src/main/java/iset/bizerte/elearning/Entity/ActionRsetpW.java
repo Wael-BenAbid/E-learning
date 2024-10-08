@@ -9,5 +9,3 @@ public class ActionRsetpW {
     private Integer otp;
     private String email;
 }
-
-

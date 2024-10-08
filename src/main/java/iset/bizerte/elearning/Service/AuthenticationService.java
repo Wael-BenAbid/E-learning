@@ -4,21 +4,15 @@ package iset.bizerte.elearning.Service;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
 
 import iset.bizerte.elearning.Config.JwtService;
-import iset.bizerte.elearning.Dto.AuthenticationRequest;
-import iset.bizerte.elearning.Dto.AuthenticationResponse;
-import iset.bizerte.elearning.Dto.EtudiantDto;
-import iset.bizerte.elearning.Dto.RegisterRequeste;
+import iset.bizerte.elearning.Dto.*;
 import iset.bizerte.elearning.Entity.*;
 import iset.bizerte.elearning.Lisner.RegistrationCompleteEvent;
-import iset.bizerte.elearning.Repository.EtudiantRepository;
-import iset.bizerte.elearning.Repository.TokenRepository;
-import iset.bizerte.elearning.Repository.UserRepository;
+import iset.bizerte.elearning.Repository.*;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,6 +34,9 @@ import static iset.bizerte.elearning.Service.UserService.applicationUrl;
 public class AuthenticationService {
     private final UserRepository repository;
     private final EtudiantRepository etudiantRepository;
+    private final Parentrepository parentRepository;
+    private final Enseignantrepository enseignantRepository;
+    private final AdministrateurRepository adminRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -70,21 +67,67 @@ public class AuthenticationService {
                             .build(),
                     HttpStatus.CREATED
             );
+        }else if (userRequest instanceof AdministrateurDto) {
+            Administrateur user = new Administrateur();
+            user = AdministrateurDto.toEntity((AdministrateurDto) userRequest);
+            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+            user.setRole(Erole.ADMIN);
+            var savedUser = repository.save(user);
+            publisher.publishEvent(new RegistrationCompleteEvent(savedUser, applicationUrl(request)));
+            return new ResponseEntity<>(
+                    Response.builder()
+                            .responseMessage("Success! Please, check your email to complete your registration")
+                            .email(savedUser.getEmail())
+                            .build(),
+                    HttpStatus.CREATED
+            );
+        } else if (userRequest instanceof EnseignantDto) {
+            Enseignant user = new Enseignant();
+            user = EnseignantDto.toEntity((EnseignantDto) userRequest);
+            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+            user.setRole(Erole.ENSEIGANT);
+            var savedUser = repository.save(user);
+            publisher.publishEvent(new RegistrationCompleteEvent(savedUser, applicationUrl(request)));
+            return new ResponseEntity<>(
+                    Response.builder()
+                            .responseMessage("Success! Please, check your email to complete your registration")
+                            .email(savedUser.getEmail())
+                            .build(),
+                    HttpStatus.CREATED
+            );
+        } else if (userRequest instanceof ParentDto) {
+            Parent user = new Parent();
+            user = ParentDto.toEntity((ParentDto) userRequest);
+            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+            user.setRole(Erole.PARENT);
+            var savedUser = repository.save(user);
+            publisher.publishEvent(new RegistrationCompleteEvent(savedUser, applicationUrl(request)));
+            return new ResponseEntity<>(
+                    Response.builder()
+                            .responseMessage("Success! Please, check your email to complete your registration")
+                            .email(savedUser.getEmail())
+                            .build(),
+                    HttpStatus.CREATED
+            );
+        } else {
+            return ResponseEntity.badRequest().body(Response.builder()
+                    .responseMessage("Invalid role or user type!")
+                    .build());
         }
-        return null;
     }
     @PostConstruct
     public void createDefaultAdmin() {
-        Etudiant userEtudiant =new Etudiant();
+        Administrateur userAdmine =new Administrateur();
 
         String email50 = "adm@mail.com";
         if (!repository.existsByEmail(email50)) {
-            userEtudiant.setEmail("adm@mail.com");
-            userEtudiant.setFirstName(" naili");
-            userEtudiant.setLastName(" salah");
-            userEtudiant.setPassword(passwordEncoder.encode("adm"));
-            userEtudiant.setRole(Erole.ETUDIANT);
-            etudiantRepository.save(userEtudiant);
+                userAdmine.setEmail("adm@mail.com");
+            userAdmine.setFirstName("naili");
+            userAdmine.setLastName("salah");
+            userAdmine.setPassword(passwordEncoder.encode("adm"));
+            userAdmine.setRole(Erole.ADMIN);
+            userAdmine.setEnabled(true);
+            adminRepository.save(userAdmine);
         }
     }
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -112,7 +155,6 @@ public class AuthenticationService {
                 .build();
     }
 
-
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
@@ -124,7 +166,6 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
-
     private void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
         if (validUserTokens.isEmpty())
@@ -135,7 +176,6 @@ public class AuthenticationService {
         });
         tokenRepository.saveAll(validUserTokens);
     }
-
 
     public void refreshToken(
             HttpServletRequest request,

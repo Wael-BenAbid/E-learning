@@ -13,5 +13,3 @@ public interface VerificationTokenService {
     ResponseEntity<Response> verifyEmail(String token);
     VerificationToken generateNewVerificationToken(String oldToken);
 }
-
-

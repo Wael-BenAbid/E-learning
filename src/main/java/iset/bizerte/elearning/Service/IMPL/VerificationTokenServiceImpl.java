@@ -31,7 +31,6 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     @Override
     public String validateToken(String token) {
 
-        //Existance Token
         VerificationToken verificationToken = tokenRepository.findByToken(token);
         if (verificationToken == null) {
             return "Invalid verification token";

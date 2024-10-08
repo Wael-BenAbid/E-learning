@@ -1,11 +1,10 @@
 package iset.bizerte.elearning.contoller;
 
 
-import iset.bizerte.elearning.Dto.AuthenticationRequest;
-import iset.bizerte.elearning.Dto.AuthenticationResponse;
-import iset.bizerte.elearning.Dto.EtudiantDto;
+import iset.bizerte.elearning.Dto.*;
 import iset.bizerte.elearning.Entity.Response;
 import iset.bizerte.elearning.Service.AuthenticationService;
+import iset.bizerte.elearning.Service.IMPL.VerificationTokenServiceImpl;
 import iset.bizerte.elearning.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,13 +25,36 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
     private final UserService userService;
-    @PostMapping("/register")
+    @PostMapping("/register-Etudiant")
     public ResponseEntity<Response> register(
             @RequestBody @Valid EtudiantDto userRequest,
             HttpServletRequest request
     )  {
         return service.register(userRequest,request);
     }
+
+    @PostMapping("/register-Parent")
+    public ResponseEntity<Response> register(
+            @RequestBody @Valid ParentDto userRequest,
+            HttpServletRequest request
+    )  {
+        return service.register(userRequest,request);
+    }
+    @PostMapping("/register-Enseignant")
+    public ResponseEntity<Response> register(
+            @RequestBody @Valid EnseignantDto userRequest,
+            HttpServletRequest request
+    )  {
+        return service.register(userRequest,request);
+    }
+    @PostMapping("/register-Administrateur")
+    public ResponseEntity<Response> register(
+            @RequestBody @Valid AdministrateurDto userRequest,
+            HttpServletRequest request
+    )  {
+        return service.register(userRequest,request);
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request

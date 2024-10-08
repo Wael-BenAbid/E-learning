@@ -37,8 +37,6 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
                 "Please, follow the link below to complete your registration.</p>" +
                 "<a href=\"" + url + "\">Verify your email to activate your account</a>" +
                 "<p> Thank you <br> Users Registration Portal Service";
-
-
         EmailDetails emailDetails = getEmailDetails(subject, mailContent);
         emailService.sendMail(emailDetails);
     }
