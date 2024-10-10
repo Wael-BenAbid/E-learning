@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,6 +14,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 public class NiveauDto {
+    public Long id;
     private String niveaustudent;
     private Boolean deleted;
     private String oriantation;
@@ -22,19 +22,19 @@ public class NiveauDto {
 
     public static Niveau toEntity(NiveauDto request) {
         return Niveau.builder()
+                .id(request.getId())
                 .niveaustudent(request.getNiveaustudent())
                 .deleted(request.getDeleted())
                 .oriantation(request.getOriantation())
                 .build();
     }
-
     public static NiveauDto fromEntity(Niveau request) {
         return NiveauDto.builder()
+                .id(request.getId())
                 .niveaustudent(request.getNiveaustudent())
                 .deleted(request.getDeleted())
                 .oriantation(request.getOriantation())
                 .matiereIds(request.getMatieres().stream().map(Matiere::getId).collect(Collectors.toSet()))
                 .build();
     }
-
 }

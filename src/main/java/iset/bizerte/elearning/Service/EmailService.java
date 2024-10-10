@@ -31,7 +31,6 @@ public class EmailService {
             };
         }
     }
-
     public void sendMail(EmailDetails emailDetails) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
@@ -46,27 +45,7 @@ public class EmailService {
         catch (Exception e) {
             throw new MailException(e.getMessage());
         }
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

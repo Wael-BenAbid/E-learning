@@ -3,6 +3,8 @@ package iset.bizerte.elearning.Entity;
 import java.io.Serializable;
 import java.time.Instant;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,9 +22,6 @@ public class AbstractEntity implements Serializable {
     @LastModifiedDate
     @Column(name = "lastModifiedDate")
     private Instant lastModifiedDate;
-
-
-
 }
 
 
