@@ -1,10 +1,9 @@
-package iset.bizerte.elearning.contoller;
+package iset.bizerte.elearning.Contoller;
 
 
 import iset.bizerte.elearning.Dto.*;
 import iset.bizerte.elearning.Entity.Response;
 import iset.bizerte.elearning.Service.AuthenticationService;
-import iset.bizerte.elearning.Service.IMPL.VerificationTokenServiceImpl;
 import iset.bizerte.elearning.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
