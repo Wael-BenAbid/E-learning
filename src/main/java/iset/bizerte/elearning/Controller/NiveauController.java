@@ -1,4 +1,4 @@
-package iset.bizerte.elearning.Contoller;
+package iset.bizerte.elearning.Controller;
 
 import iset.bizerte.elearning.Dto.NiveauDto;
 import iset.bizerte.elearning.Service.NiveauService;
@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/niveaux")
+@RequestMapping("/api/v1/niveaux")
 @RequiredArgsConstructor // injiction des dépendences
 public class NiveauController {
 
@@ -26,12 +26,12 @@ public class NiveauController {
         NiveauDto niveau = niveauService.findById(id);
         return ResponseEntity.ok(niveau);
     }
-    @PostMapping("/Add_niveau")
+    @PostMapping("/add_niveau")
     public ResponseEntity<NiveauDto> createNiveau(@RequestBody NiveauDto niveauDto) {
         NiveauDto newNiveau = niveauService.save(niveauDto);
         return ResponseEntity.ok(newNiveau);
     }
-    @PutMapping("/Update{id}")
+    @PutMapping("/Update/{id}")
     public ResponseEntity<NiveauDto> updateNiveau(@PathVariable Long id, @RequestBody NiveauDto niveauDto) {
         niveauDto.setId(id);
         NiveauDto updatedNiveau = niveauService.save(niveauDto);
@@ -45,11 +45,6 @@ public class NiveauController {
     @GetMapping("/search")
     public ResponseEntity<List<NiveauDto>> searchByOrientation(@RequestParam String key) {
         List<NiveauDto> niveaux = niveauService.findbyobjet(key);
-        return ResponseEntity.ok(niveaux);
-    }
-    @GetMapping("/date")
-    public ResponseEntity<List<NiveauDto>> getNiveauxByDate(@RequestParam Date start, @RequestParam Date end) {
-        List<NiveauDto> niveaux = niveauService.findDate(start, end);
         return ResponseEntity.ok(niveaux);
     }
 }

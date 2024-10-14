@@ -10,7 +10,7 @@ public interface NiveauService {
     public List<NiveauDto> findAll();
     public NiveauDto findById(Long id);
     NiveauDto save(NiveauDto  request);
+    NiveauDto update(Long id, NiveauDto request);
     public void deleteById(Long id);
     public List<NiveauDto> findbyobjet(String kye);
-    public List<NiveauDto> findDate(Date start, Date end);
 }

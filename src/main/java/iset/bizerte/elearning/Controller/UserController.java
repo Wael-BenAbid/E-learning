@@ -1,4 +1,4 @@
-package iset.bizerte.elearning.Contoller;
+package iset.bizerte.elearning.Controller;
 
 import iset.bizerte.elearning.Entity.ChangePasswordResetRequest;
 import iset.bizerte.elearning.Entity.User;
